@@ -21,8 +21,6 @@ export const TodoApp = ({ addTodo }) => {
     setQuery(event.target.value);
   }
 
-  console.log(query);
-
   return (
       <form onSubmit={onSubmitHandler}>
         <input
