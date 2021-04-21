@@ -1,22 +1,15 @@
 {
   "files": {
-    "main.css": "./static/css/main.8031d187.chunk.css",
-    "main.js": "./static/js/main.b0161b3b.chunk.js",
-    "main.js.map": "./static/js/main.b0161b3b.chunk.js.map",
-    "runtime-main.js": "./static/js/runtime-main.5b50cb44.js",
-    "runtime-main.js.map": "./static/js/runtime-main.5b50cb44.js.map",
-    "static/js/2.44c333d3.chunk.js": "./static/js/2.44c333d3.chunk.js",
-    "static/js/2.44c333d3.chunk.js.map": "./static/js/2.44c333d3.chunk.js.map",
-    "index.html": "./index.html",
-    "precache-manifest.237993ceab8c171497bfb95469a06636.js": "./precache-manifest.237993ceab8c171497bfb95469a06636.js",
-    "service-worker.js": "./service-worker.js",
-    "static/css/main.8031d187.chunk.css.map": "./static/css/main.8031d187.chunk.css.map",
-    "static/js/2.44c333d3.chunk.js.LICENSE": "./static/js/2.44c333d3.chunk.js.LICENSE"
-  },
-  "entrypoints": [
-    "static/js/runtime-main.5b50cb44.js",
-    "static/js/2.44c333d3.chunk.js",
-    "static/css/main.8031d187.chunk.css",
-    "static/js/main.b0161b3b.chunk.js"
-  ]
+    "main.css": "/react-jun19-todo-app/static/css/main.095e198b.chunk.css",
+    "main.js": "/react-jun19-todo-app/static/js/main.406ff2d6.chunk.js",
+    "main.js.map": "/react-jun19-todo-app/static/js/main.406ff2d6.chunk.js.map",
+    "runtime~main.js": "/react-jun19-todo-app/static/js/runtime~main.fca6f6d6.js",
+    "runtime~main.js.map": "/react-jun19-todo-app/static/js/runtime~main.fca6f6d6.js.map",
+    "static/js/2.070c7635.chunk.js": "/react-jun19-todo-app/static/js/2.070c7635.chunk.js",
+    "static/js/2.070c7635.chunk.js.map": "/react-jun19-todo-app/static/js/2.070c7635.chunk.js.map",
+    "index.html": "/react-jun19-todo-app/index.html",
+    "precache-manifest.5719aa237e0dbe2fd43b6880d596bded.js": "/react-jun19-todo-app/precache-manifest.5719aa237e0dbe2fd43b6880d596bded.js",
+    "service-worker.js": "/react-jun19-todo-app/service-worker.js",
+    "static/css/main.095e198b.chunk.css.map": "/react-jun19-todo-app/static/css/main.095e198b.chunk.css.map"
+  }
 }
