@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { TodoApp } from './TodoApp';
 import { TodoList } from './TodoList';
 import { getTodos } from './api/api';
@@ -11,9 +11,13 @@ function App() {
       .then(setTodos);
   }, []);
 
-  const addTodo = (todo) => {
+  const addTodo = useCallback((todo) => {
     setTodos(todos => [...todos, todo]);
-  }
+  }, []);
+
+  const deleteTodo = useCallback((todoId) => {
+    setTodos(todos => todos.filter(todo => todo.id !== todoId));
+  }, []);
 
   return (
     <section className="todoapp">
@@ -25,7 +29,7 @@ function App() {
       <section className="main">
         <input type="checkbox" id="toggle-all" className="toggle-all" />
         <label htmlFor="toggle-all">Mark all as complete</label>
-        <TodoList items={todos} />
+        <TodoList items={todos} deleteItem={deleteTodo} />
       </section>
 
       <footer className="footer">

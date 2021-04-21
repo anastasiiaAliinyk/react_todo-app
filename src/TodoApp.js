@@ -31,6 +31,7 @@ export const TodoApp = ({ addTodo }) => {
           value={query}
           placeholder="What needs to be done?"
           onChange={onChangeHandler}
+          required
         />
       </form>
     )

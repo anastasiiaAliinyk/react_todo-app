@@ -18,19 +18,15 @@ export const getTodos = () => (
     .then(todos => todos.filter(todo => todo.userId === BASE_USERID))
 );
 
-export const saveTodo = (todo) => (request('/todos', {
+export const saveTodo = todo => request('/todos', {
   method: 'POST',
   headers: {
     'Content-type': 'application/json; charset=UTF-8',
   },
   body: JSON.stringify(todo),
-  // body: JSON.stringify({
-  //   "userId": 1182,
-  //   "title": "Completed todo",
-  //   "completed": true,
-  // }),
-  })
-);
+  });
+
+export const deleteTodo = todoId => request(`/todos/${todoId}`, {method: 'DELETE'});
 
 export const saveUser = () => (request('/users', {
   method: 'POST',
@@ -44,5 +40,3 @@ export const saveUser = () => (request('/users', {
     phone: 1234567890,
   }),
 }));
-
-//id: 1182
