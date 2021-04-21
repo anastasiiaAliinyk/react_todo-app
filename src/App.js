@@ -11,17 +11,21 @@ function App() {
       .then(setTodos);
   }, []);
 
+  const addTodo = (todo) => {
+    setTodos(todos => [...todos, todo]);
+  }
+
   return (
     <section className="todoapp">
       <header className="header">
         <h1>todos</h1>
-        <TodoApp />
+        <TodoApp addTodo={addTodo} />
       </header>
 
       <section className="main">
         <input type="checkbox" id="toggle-all" className="toggle-all" />
         <label htmlFor="toggle-all">Mark all as complete</label>
-        <TodoList todos={todos} />
+        <TodoList items={todos} />
       </section>
 
       <footer className="footer">

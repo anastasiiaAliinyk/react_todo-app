@@ -2,9 +2,12 @@ import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
-export const TodoList = ({ todos }) => (
+export const TodoList = ({ items }) => {
+const sortedTodosList = items.sort((previous, current) => current.id - previous.id);
+
+return (
   <ul className="todo-list">
-    {todos.map(todo => (
+    {sortedTodosList.map(todo => (
       <li
         key={todo.id}
         className={classNames(
@@ -33,7 +36,8 @@ export const TodoList = ({ todos }) => (
 
    */}
   </ul>
-);
+  )
+};
 
 TodoList.defaultProp = {
   completed: false,
@@ -41,7 +45,7 @@ TodoList.defaultProp = {
 };
 
 TodoList.propTypes = {
-  todos: PropTypes.arrayOf(
+  items: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       completed: PropTypes.bool,
