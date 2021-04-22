@@ -26,6 +26,16 @@ export const saveTodo = todo => request('/todos', {
   body: JSON.stringify(todo),
   });
 
+export const updateCompletedStatus = (todoId, value) => request(`/todos/${todoId}`, {
+  method: 'PATCH',
+  headers: {
+    'Content-type': 'application/json; charset=UTF-8',
+  },
+  body: JSON.stringify({
+    completed: value,
+  }),
+});
+
 export const deleteTodo = todoId => request(`/todos/${todoId}`, {method: 'DELETE'});
 
 export const saveUser = () => (request('/users', {

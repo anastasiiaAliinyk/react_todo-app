@@ -52,6 +52,15 @@ function App() {
     )
   }
 
+  const setStatus = (todoId, completed) => {
+    setTodos(todos => todos.map((todo) => {
+      if (todo.id === todoId) {
+        todo.completed = completed;
+      }
+      return todo;
+    }))
+  }
+
   return (
     <section className="todoapp">
       <header className="header">
@@ -62,7 +71,7 @@ function App() {
       <section className="main">
         <input type="checkbox" id="toggle-all" className="toggle-all" />
         <label htmlFor="toggle-all">Mark all as complete</label>
-        <TodoList items={filteredTodos} deleteItem={deleteTodo} />
+        <TodoList items={filteredTodos} deleteItem={deleteTodo} setStatus={setStatus}/>
       </section>
 
       <footer className="footer">

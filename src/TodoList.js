@@ -1,37 +1,20 @@
 import React from 'react';
-import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
-import { deleteTodo } from './api/api';
+import { TodoItem } from './TodoItem';
 
-export const TodoList = ({ items, deleteItem }) => {
-  const onDeleteHandler = (todoId) => {
-    deleteTodo(todoId)
-      .then(todo => deleteItem(todo.id));
-  }
-
+export const TodoList = ({ items, deleteItem, setStatus }) => {
   const sortedTodosList = items.sort((previous, current) => current.id - previous.id);
 
   return (
     <ul className="todo-list">
       {sortedTodosList.map(todo => (
-        <li
-          key={todo.id}
-          className={classNames(
-            { completed: todo.completed },
-          )}
-        >
-          <div className="view">
-            <input type="checkbox" className="toggle" />
-            <label>{todo.title}</label>
-            <button 
-              type="button" 
-              className="destroy" 
-              onClick={() => onDeleteHandler(todo.id)}
-            />
-          </div>
-          <input type="text" className="edit" />
-        </li>
+       <TodoItem 
+        key={todo.id}
+        todo={todo} 
+        deleteItem={deleteItem} 
+        setStatus={setStatus}
+      />
       ))}
 
       {/*
