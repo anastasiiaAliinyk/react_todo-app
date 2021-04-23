@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState, useMemo } from 'react';
 import { TodoApp } from './TodoApp';
 import { TodoList } from './TodoList';
-import { getTodos } from './api/api';
+import { getTodos, deleteTodo } from './api/api';
 import { Link } from './Link';
 
 function App() {
@@ -42,7 +42,7 @@ function App() {
     setTodos(todos => [...todos, todo]);
   }, []);
 
-  const deleteTodo = useCallback((todoId) => {
+  const deleteTodos = useCallback((todoId) => {
     setTodos(todos => todos.filter(todo => todo.id !== todoId));
   }, []);
 
@@ -61,6 +61,16 @@ function App() {
     }))
   }
 
+  const clearCompleted = () => {
+    const completedItems = todos.filter(todo => todo.completed);
+
+    for (const completedItem of completedItems) {
+      deleteTodo(completedItem.id);
+    }
+
+    setTodos(todos => todos.filter(todo => !todo.completed));
+  }
+
   return (
     <section className="todoapp">
       <header className="header">
@@ -71,10 +81,11 @@ function App() {
       <section className="main">
         <input type="checkbox" id="toggle-all" className="toggle-all" />
         <label htmlFor="toggle-all">Mark all as complete</label>
-        <TodoList items={filteredTodos} deleteItem={deleteTodo} setStatus={setStatus}/>
+        <TodoList items={filteredTodos} deleteItem={deleteTodos} setStatus={setStatus}/>
       </section>
 
-      <footer className="footer">
+      {todos.length > 0  &&
+       <footer className="footer">
         <span className="todo-count">
           {notCompletedTodosCount} items left
         </span>
@@ -106,44 +117,19 @@ function App() {
           </li>
         </ul>
 
-        <button type="button" className="clear-completed">
-          Clear completed
-        </button>
+        {todos.some(todo => todo.completed) && 
+          <button 
+            type="button" 
+            className="clear-completed"
+            onClick={clearCompleted}
+            >
+            Clear completed
+          </button>
+        }
       </footer>
+    }
     </section>
   );
 }
 
 export default App;
-
-//usememo
-
-/* <a 
-    href="#/" 
-    className={classNames(
-      {selected: filteredBy === 'all'}
-    )}
-    onClick={() => filterTodosList('all')}
-  >
-    All
-  </a> */
-
-/* <a 
-    href="#/active" 
-    onClick={() => filterTodosList('active')}
-    className={classNames(
-      {selected: filteredBy === 'active'}
-    )}
-  >
-    Active
-  </a> */
-
-/* <a 
-    href="#/completed" 
-    onClick={() => filterTodosList('completed')}
-    className={classNames(
-      {selected: filteredBy === 'completed'}
-    )}
-  >
-    Completed
-  </a> */
