@@ -1,17 +1,19 @@
 import React, { useState, useRef } from 'react';
 import classNames from 'classnames';
 
-import { deleteTodo, updateCompletedStatus } from './api/api';
+import { deleteTodo, updateCompletedStatus, updateTitle } from './api/api';
 
-export const TodoItem = ({ todo, deleteItem, setStatus }) => {
+export const TodoItem = ({ todo, deleteItem, setStatus, setNewTitle }) => {
   const [checked, setChecked] = useState(todo.completed);
+  const [editing, setEditing] = useState(false);
+  const [value, setValue] = useState(todo.title);
 
-  //const inputEl = useRef(null);
+  const inputEl = useRef(null);
 
-   const onDeleteHandler = (todoId) => {
-    deleteTodo(todoId)
-      .then(todo => deleteItem(todo.id));
-  }
+  const onDeleteHandler = (todoId) => {
+  deleteTodo(todoId)
+    .then(todo => deleteItem(todo.id));
+  } 
 
   const setStatusCompleted = (id, event) => {
     setChecked(event.target.checked);
@@ -19,14 +21,32 @@ export const TodoItem = ({ todo, deleteItem, setStatus }) => {
       .catch(() => {
         setChecked(!event.target.checked);
       });
-    setStatus(id, event.target.checked)
+    setStatus(id, event.target.checked);
+  }
+
+  const onEdit = () => {
+    setEditing(true);
+
+    setTimeout(() => {
+      inputEl.current.focus();
+    });
+  }
+
+  const onSubmitHandler = () => {
+    setEditing(false);
+    setValue(todo.title);
+    updateTitle(todo.id, value);
+    setNewTitle(todo.id, value)
+  }
+
+  const onChange = (event) => {
+    setValue(event.target.value)
   }
 
   return (
     <li
       className={classNames(
-        //"editing",
-        { completed: todo.completed },
+        { completed: todo.completed, editing },
       )}
       
     >
@@ -47,24 +67,19 @@ export const TodoItem = ({ todo, deleteItem, setStatus }) => {
         type="button" 
         className="editInput"
         title="Edit title" 
-        onClick={() => console.log('fdsdfsd')}
+        onClick={onEdit}
       /> 
     </div>
-    <input type="text" className="edit" placeholder="fdsfdf"/>
+    <form onSubmit={onSubmitHandler}>
+      <input
+        type="text"
+        className="edit"
+        value={value}
+        onChange={onChange}
+        ref={inputEl}
+        onBlur={() => setEditing(false)}
+      />
+    </form>
   </li>
   )
 }
-
-// function TextInputWithFocusButton() {
-//   const inputEl = useRef(null);
-//   const onButtonClick = () => {
-//     // `current` указывает на смонтированный элемент `input`
-//     inputEl.current.focus();
-//   };
-//   return (
-//     <>
-//       <input ref={inputEl} type="text" />
-//       <button onClick={onButtonClick}>Установить фокус на поле ввода</button>
-//     </>
-//   );
-// }

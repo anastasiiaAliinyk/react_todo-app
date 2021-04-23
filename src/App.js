@@ -61,6 +61,15 @@ function App() {
     }))
   }
 
+  const setNewTitle = (todoId, title) => {
+    setTodos(todos => todos.map((todo) => {
+      if (todo.id === todoId) {
+        todo.title = title;
+      }
+      return todo;
+    }))
+  }
+
   const clearCompleted = () => {
     const completedItems = todos.filter(todo => todo.completed);
 
@@ -81,7 +90,12 @@ function App() {
       <section className="main">
         <input type="checkbox" id="toggle-all" className="toggle-all" />
         <label htmlFor="toggle-all">Mark all as complete</label>
-        <TodoList items={filteredTodos} deleteItem={deleteTodos} setStatus={setStatus}/>
+        <TodoList 
+          items={filteredTodos} 
+          deleteItem={deleteTodos} 
+          setStatus={setStatus}
+          setNewTitle={setNewTitle}
+        />
       </section>
 
       {todos.length > 0  &&

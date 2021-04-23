@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { TodoItem } from './TodoItem';
 
-export const TodoList = ({ items, deleteItem, setStatus }) => {
+export const TodoList = ({ items, deleteItem, setStatus, setNewTitle }) => {
   const sortedTodosList = items.sort((previous, current) => current.id - previous.id);
 
   return (
@@ -14,21 +14,9 @@ export const TodoList = ({ items, deleteItem, setStatus }) => {
         todo={todo} 
         deleteItem={deleteItem} 
         setStatus={setStatus}
+        setNewTitle={setNewTitle}
       />
       ))}
-
-      {/*
-
-      <li className="editing">
-        <div className="view">
-          <input type="checkbox" className="toggle" />
-          <label>zxcvbnm</label>
-          <button type="button" className="destroy" />
-        </div>
-        <input type="text" className="edit" />
-      </li>
-
-    */}
     </ul>
   )
 };
