@@ -1,33 +1,46 @@
-import React, { useCallback, useEffect, useState, useMemo } from 'react';
+import React, { 
+  useCallback, 
+  useEffect, 
+  useState, 
+  useMemo 
+} from 'react';
+import {
+  NavLink,
+  useLocation
+} from "react-router-dom";
+
 import { TodoApp } from './TodoApp';
 import { TodoList } from './TodoList';
 import { getTodos, deleteTodo } from './api/api';
-import { Link } from './Link';
 
 function App() {
   const [todos, setTodos] = useState(null);
   const [notCompletedTodosCount, setCount] =  useState('');
-  const [filteredBy, setFilteredBy] =  useState('all');
- 
+  const location = useLocation().pathname;
+  
   useEffect(() => {
     getTodos()
       .then(setTodos);
   }, []);
 
-  const filterTodosList = useCallback ((filterBy) => {
+  const filterTodosList = useCallback((filterBy) => {
+    if (todos === null) {
+      return;
+    }
+
     switch(filterBy) {
-      case 'completed':
+      case '/completed':
         return todos.filter(todo => todo.completed);
-      case 'active':
+      case '/active':
         return todos.filter(todo => !todo.completed);
       default:
-        return todos;
+       return todos;
     }
   }, [todos]);
  
   const filteredTodos = useMemo(() => {
-    return filterTodosList(filteredBy)
-  }, [filteredBy, filterTodosList])
+    return filterTodosList(location)
+  }, [location, filterTodosList])
 
   useEffect(() => {
     if (todos === null) {
@@ -46,7 +59,7 @@ function App() {
     setTodos(todos => todos.filter(todo => todo.id !== todoId));
   }, []);
 
-  if (filteredTodos === null) {
+  if (todos === null) {
     return (
       <div className="loading">Loading...</div>
     )
@@ -79,7 +92,7 @@ function App() {
 
     setTodos(todos => todos.filter(todo => !todo.completed));
   }
-
+  
   return (
     <section className="todoapp">
       <header className="header">
@@ -88,8 +101,6 @@ function App() {
       </header>
 
       <section className="main">
-        <input type="checkbox" id="toggle-all" className="toggle-all" />
-        <label htmlFor="toggle-all">Mark all as complete</label>
         <TodoList 
           items={filteredTodos} 
           deleteItem={deleteTodos} 
@@ -106,28 +117,29 @@ function App() {
 
         <ul className="filters">
           <li>
-            <Link 
-              selectedFilter={filteredBy} 
-              filterBy='all' 
-              text='All' 
-              filterTodos={setFilteredBy}
-            />
+            <NavLink 
+              to="/"
+              activeClassName="selected"
+              exact
+            >
+              All
+            </NavLink>
           </li>
           <li>
-          <Link 
-              selectedFilter={filteredBy} 
-              filterBy='active' 
-              text='Active' 
-              filterTodos={setFilteredBy}
-            />
+            <NavLink 
+              to="/active"
+              activeClassName="selected"
+            >
+              Active
+            </NavLink>
           </li>
           <li>
-            <Link 
-              selectedFilter={filteredBy} 
-              filterBy='completed' 
-              text='Completed' 
-              filterTodos={setFilteredBy}
-            />
+            <NavLink 
+              to="/completed"
+              activeClassName="selected"
+            >
+              Completed
+            </NavLink>
           </li>
         </ul>
 

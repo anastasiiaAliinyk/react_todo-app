@@ -32,7 +32,8 @@ export const TodoItem = ({ todo, deleteItem, setStatus, setNewTitle }) => {
     });
   }
 
-  const onSubmitHandler = () => {
+  const onSubmitHandler = (event) => {
+    event.preventDefault();
     setEditing(false);
     setValue(todo.title);
     updateTitle(todo.id, value);
